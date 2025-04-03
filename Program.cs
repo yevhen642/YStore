@@ -1,3 +1,4 @@
+using ApiClient.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YStore.Managers;
@@ -32,8 +33,12 @@ public static class Program
             options.ConnectionString = configuration.GetConnectionString("DefaultConnection");
         });
 
+        services.AddSingleton<IConfiguration>(configuration);
+
         services.AddScoped<IProductProvider, ProductProvider>();
         services.AddScoped<ProductManager>();
         services.AddSingleton<Form1>();
+        services.AddScoped<TaxRateService>();
+        services.AddHttpClient();
     }
 }

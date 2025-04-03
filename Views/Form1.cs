@@ -1,3 +1,4 @@
+using ApiClient.Services;
 using System.Data;
 using YStore.Managers;
 using YStore.Views;
@@ -7,11 +8,13 @@ namespace YStore;
 public partial class Form1 : Form
 {
     private readonly ProductManager _productManager;
+    private readonly TaxRateService _taxRateService;
 
-    public Form1(ProductManager productManager)
+    public Form1(ProductManager productManager, TaxRateService taxRateService)
     {
         InitializeComponent();
         _productManager = productManager;
+        _taxRateService = taxRateService;
 
         ReadProducts();
     }
@@ -82,5 +85,25 @@ public partial class Form1 : Form
 
         if (form.ShowDialog() == DialogResult.OK)
             ReadProducts();
+    }
+
+    private async void GetTax_Click(object sender, EventArgs e)
+    {
+        if (int.TryParse(taxTextBox.Text, out int zipCode))
+        {
+            try
+            {
+                var taxRate = await _taxRateService.GetTaxRateByStateCode(zipCode);
+                taxOutputTextBox.Text = taxRate;
+            }
+            catch (Exception ex)
+            {
+                taxOutputTextBox.Text = "Error retrieving tax rate";
+            }
+        }
+        else
+        {
+            taxOutputTextBox.Text = string.Empty;
+        }
     }
 }

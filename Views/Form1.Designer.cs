@@ -33,6 +33,10 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             dataTable = new DataGridView();
+            getTaxByStateCode = new Label();
+            taxTextBox = new TextBox();
+            taxOutputTextBox = new TextBox();
+            GetTax = new Button();
             ((System.ComponentModel.ISupportInitialize)dataTable).BeginInit();
             SuspendLayout();
             // 
@@ -57,7 +61,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(164, 93);
+            btnUpdate.Location = new Point(165, 93);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(97, 35);
             btnUpdate.TabIndex = 3;
@@ -67,7 +71,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(304, 93);
+            btnDelete.Location = new Point(296, 93);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(115, 35);
             btnDelete.TabIndex = 4;
@@ -80,20 +84,57 @@
             dataTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataTable.Location = new Point(24, 143);
+            dataTable.Location = new Point(24, 162);
             dataTable.MultiSelect = false;
             dataTable.Name = "dataTable";
             dataTable.RowHeadersVisible = false;
             dataTable.RowHeadersWidth = 43;
             dataTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataTable.Size = new Size(760, 322);
+            dataTable.Size = new Size(857, 186);
             dataTable.TabIndex = 5;
+            // 
+            // getTaxByStateCode
+            // 
+            getTaxByStateCode.AutoSize = true;
+            getTaxByStateCode.Location = new Point(24, 378);
+            getTaxByStateCode.Name = "getTaxByStateCode";
+            getTaxByStateCode.Size = new Size(132, 17);
+            getTaxByStateCode.TabIndex = 6;
+            getTaxByStateCode.Text = "Get tax by state code";
+            // 
+            // taxTextBox
+            // 
+            taxTextBox.Location = new Point(182, 370);
+            taxTextBox.Name = "taxTextBox";
+            taxTextBox.Size = new Size(199, 25);
+            taxTextBox.TabIndex = 7;
+            // 
+            // taxOutputTextBox
+            // 
+            taxOutputTextBox.Location = new Point(425, 368);
+            taxOutputTextBox.Name = "taxOutputTextBox";
+            taxOutputTextBox.Size = new Size(124, 25);
+            taxOutputTextBox.TabIndex = 8;
+            // 
+            // GetTax
+            // 
+            GetTax.Location = new Point(184, 414);
+            GetTax.Name = "GetTax";
+            GetTax.Size = new Size(79, 24);
+            GetTax.TabIndex = 9;
+            GetTax.Text = "GetTax";
+            GetTax.UseVisualStyleBackColor = true;
+            GetTax.Click += GetTax_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(806, 490);
+            ClientSize = new Size(904, 689);
+            Controls.Add(GetTax);
+            Controls.Add(taxOutputTextBox);
+            Controls.Add(taxTextBox);
+            Controls.Add(getTaxByStateCode);
             Controls.Add(dataTable);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
@@ -103,6 +144,7 @@
             Text = "ShowDataForm";
             ((System.ComponentModel.ISupportInitialize)dataTable).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -111,5 +153,9 @@
         private Button btnUpdate;
         private Button btnDelete;
         private DataGridView dataTable;
+        private Label getTaxByStateCode;
+        private TextBox taxTextBox;
+        private TextBox taxOutputTextBox;
+        private Button GetTax;
     }
 }
