@@ -8,6 +8,7 @@ using YStore.Providers;
 public interface IProductProvider
 {
     IEnumerable<Product> GetProducts();
+    Product GetProductById(int productId);
     void AddProduct(Product product);
     void UpdateProduct(Product product);
     void DeleteProduct(int productId);
@@ -42,7 +43,7 @@ public class ProductProvider : IProductProvider
                             ProductId = Convert.ToInt32(reader["ProductId"]),
                             ProductName = reader["ProductName"].ToString(),
                             Description = reader["Description"] as string,
-                            Price = Convert.ToDecimal(reader["Price"]),
+                            Price = Convert.ToInt32(reader["Price"]),
                             StockQuantity = Convert.ToInt32(reader["StockQuantity"])
                         });
                     }
@@ -53,13 +54,46 @@ public class ProductProvider : IProductProvider
         return products;
     }
 
+    public Product GetProductById(int productId)
+    {
+        Product product = null;
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            using (SqlCommand command = new SqlCommand("GetProductById", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@ProductId", SqlDbType.Int).Value = productId;
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        product = new Product
+                        {
+                            ProductId = Convert.ToInt32(reader["ProductId"]),
+                            ProductName = reader["ProductName"].ToString(),
+                            Description = reader["Description"] as string,
+                            Price = Convert.ToInt32(reader["Price"]),
+                            StockQuantity = Convert.ToInt32(reader["StockQuantity"])
+                        };
+                    }
+                }
+            }
+        }
+
+        return product;
+    }
+
     public void AddProduct(Product product)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            using (SqlCommand cmd = new SqlCommand("AddProduct", connection))
+            using (SqlCommand command = new SqlCommand("AddProduct", connection))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
+                command.CommandType = CommandType.StoredProcedure;
 
                 var parameters = new SqlParameterBuilder()
                     .Add("@ProductName", SqlDbType.NVarChar, product.ProductName, 100)
@@ -68,10 +102,14 @@ public class ProductProvider : IProductProvider
                     .Add("@StockQuantity", SqlDbType.Int, product.StockQuantity)
                     .Build();
 
-                cmd.Parameters.AddRange(parameters);
+                command.Parameters.AddRange(parameters);
+
+                SqlParameter outParam = new SqlParameter("@NewProductId", SqlDbType.Int);
+                outParam.Direction = ParameterDirection.Output;
+                command.Parameters.Add(outParam);
 
                 connection.Open();
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
     }
@@ -82,6 +120,8 @@ public class ProductProvider : IProductProvider
         {
             using (SqlCommand command = new SqlCommand("UpdateProduct", connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
+
                 var parameters = new SqlParameterBuilder()
                     .Add("@ProductId", SqlDbType.Int, product.ProductId)
                     .Add("@ProductName", SqlDbType.NVarChar, product.ProductName, 100)
@@ -110,8 +150,6 @@ public class ProductProvider : IProductProvider
                 var parameters = new SqlParameterBuilder()
                     .Add("@ProductId", SqlDbType.Int, productId)
                     .Build();
-
-                command.Parameters.AddRange(parameters);
 
                 connection.Open();
                 command.ExecuteNonQuery();

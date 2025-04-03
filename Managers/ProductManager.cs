@@ -18,6 +18,11 @@ namespace YStore.Managers
             return products;
         }
 
+        public Product GetProduct(int productId)
+        {
+            return _productProvider.GetProductById(productId);
+        }
+
         public void CreateProduct(Product product)
         {
             _productProvider.AddProduct(product);

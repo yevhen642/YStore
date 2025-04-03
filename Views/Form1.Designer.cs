@@ -28,62 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listView1 = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
+            button1 = new Button();
+            btnCreate = new Button();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            dataTable = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataTable).BeginInit();
             SuspendLayout();
             // 
-            // listView1
+            // button1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
-            listView1.Location = new Point(25, 56);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(606, 422);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
+            button1.Location = new Point(24, 26);
+            button1.Name = "button1";
+            button1.Size = new Size(102, 36);
+            button1.TabIndex = 1;
+            button1.Text = "Products";
+            button1.UseVisualStyleBackColor = true;
             // 
-            // columnHeader1
+            // btnCreate
             // 
-            columnHeader1.Text = "ProductId";
+            btnCreate.Location = new Point(24, 93);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(102, 35);
+            btnCreate.TabIndex = 2;
+            btnCreate.Text = "Create";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
             // 
-            // columnHeader2
+            // btnUpdate
             // 
-            columnHeader2.Text = "ProductName";
+            btnUpdate.Location = new Point(164, 93);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(97, 35);
+            btnUpdate.TabIndex = 3;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
-            // columnHeader3
+            // btnDelete
             // 
-            columnHeader3.Text = "Description";
+            btnDelete.Location = new Point(304, 93);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(115, 35);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += button4_Click;
             // 
-            // columnHeader4
+            // dataTable
             // 
-            columnHeader4.Text = "Price";
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "StockQuantity";
+            dataTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataTable.Location = new Point(24, 143);
+            dataTable.MultiSelect = false;
+            dataTable.Name = "dataTable";
+            dataTable.RowHeadersVisible = false;
+            dataTable.RowHeadersWidth = 43;
+            dataTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataTable.Size = new Size(760, 322);
+            dataTable.TabIndex = 5;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(818, 727);
-            Controls.Add(listView1);
+            ClientSize = new Size(806, 490);
+            Controls.Add(dataTable);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnCreate);
+            Controls.Add(button1);
             Name = "Form1";
             Text = "ShowDataForm";
-            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)dataTable).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ListView listView1;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader5;
+        private Button button1;
+        private Button btnCreate;
+        private Button btnUpdate;
+        private Button btnDelete;
+        private DataGridView dataTable;
     }
 }
